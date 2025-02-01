@@ -19,7 +19,7 @@ public class ScraperController {
     public void testScraper() {
         try {
             // Connect to the website and get the HTML document
-            Document doc = Jsoup.connect("https://langleymusic.com").get();
+            Document doc = Jsoup.connect("https://www.walmart.ca/en").get();
 
             // Select all <a> tags (links)
             Elements links = doc.select("a");
