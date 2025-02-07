@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lls.core.util.DynamoDBUtil;
+
 @RestController
 @RequestMapping("/scraper")
 public class ScraperController {
@@ -22,13 +24,15 @@ public class ScraperController {
             Document doc = Jsoup.connect("https://www.walmart.ca/en").get();
 
             // Select all <a> tags (links)
-            Elements links = doc.select("a");
+            Elements links = doc.select("li");
 
             // Print all links
             for (Element link : links) {
-                System.out.println("Text: " + link.text());
-                System.out.println("URL: " + link.attr("href"));
+                System.out.println("Class: " + link.className());
+                // System.out.println("URL: " + link.attr("href"));
             }
+
+            DynamoDBUtil.writeToDynamoDB();
         } catch (Exception e) {
             e.printStackTrace();
         }
